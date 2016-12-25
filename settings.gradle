@@ -1,0 +1,5 @@
+include ':dummy', ':part-1', ':part-2', ':part-1 difactory', ':part-2 difactory'
+include ':difactory'
+project(':difactory').projectDir = new File(settingsDir, '../DiFactory/libsrc')
+include ':sdannotations'
+project(':sdannotations').projectDir = new File(settingsDir, '../SdAnnotations/libsrc')

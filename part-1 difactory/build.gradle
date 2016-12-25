@@ -1,0 +1,30 @@
+apply plugin: 'java'
+apply plugin: 'application'
+apply plugin: "net.ltgt.apt"
+
+mainClassName = 'com.example.Application'
+
+jar {
+    baseName = 'dagger2-examples-part1 difactory'
+    version = '1.0.0'
+}
+
+Properties versionProps = new Properties()
+versionProps.loadFromXML(new FileInputStream(file('../../../versionConfig.xml')))
+
+def junitVersion = versionProps['junitVersion']
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+
+    compileOnly project(':difactory')
+
+    // https://developer.android.com/training/testing/unit-testing/local-unit-tests.html
+    // Set Up Your Testing Environment
+    // Required -- JUnit 4 framework
+    testCompile "junit:junit:$junitVersion"
+    // Optional -- Mockito framework
+    // testCompile "org.mockito:mockito-core:$mockito_coreVersion"
+    // Set Up Your Testing Environment
+
+}

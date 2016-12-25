@@ -1,22 +1,26 @@
-plugins {
-    id "net.ltgt.apt" version "0.7"
-}
-
 apply plugin: 'java'
 apply plugin: 'application'
+apply plugin: "net.ltgt.apt"
 
 mainClassName = 'com.example.Application'
 
 jar {
-    baseName = 'dagger2-examples-part1'
+    baseName = 'dagger2-examples-part2'
     version = '1.0.0'
 }
 
-dependencies {
-    apt     'com.google.dagger:dagger-compiler:2.6'
-    compile 'com.google.dagger:dagger:2.6'
-}
+Properties versionProps = new Properties()
+versionProps.loadFromXML(new FileInputStream(file('../../../versionConfig.xml')))
 
-repositories {
-    jcenter()
+def daggerVersion = versionProps['daggerVersion']
+def dagger_compilerVersion = daggerVersion
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+
+// Begin Dagger
+    apt "com.google.dagger:dagger-compiler:$dagger_compilerVersion"
+    compile "com.google.dagger:dagger:$daggerVersion"
+// End Dagger
+
 }
